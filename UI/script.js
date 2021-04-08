@@ -1,14 +1,15 @@
 document.getElementById('train-model').addEventListener('click', async (e) => {
     e.preventDefault()
     let accuracy = "The accuracy of the model is ";
-    document.getElementById('predict').disabled = false
     await fetch('http://127.0.0.1:5000/trainModel', {
         mode: 'cors', // no-cors, *cors, same-origin
     })
         .then(response => response.json())
         .then(data => accuracy += data);
 
-    document.getElementById('result').textContent = accuracy;
+    document.getElementsByClassName('results')[0].style.display = 'flex';
+    document.getElementById('accuracy').textContent = accuracy + "%";
+    document.getElementById('predict').disabled = false
 })
 
 document.getElementById('predict').addEventListener('click', async (e) => {
@@ -27,8 +28,12 @@ document.getElementById('predict').addEventListener('click', async (e) => {
         .then(d => result = d);
 
     if (result === 'B') {
-        document.getElementById('result').textContent = "Benign"
+        document.getElementById('result').textContent = "The tumor is Benign"
     } else if (result === 'M') {
-        document.getElementById('result').textContent = "Malignant"
+        document.getElementById('result').textContent = "The tumor is Malignant"
     }
+})
+
+document.getElementById('reset').addEventListener('click', (e) => {
+    document.getElementById('result').textContent = '';
 })
