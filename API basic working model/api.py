@@ -23,6 +23,7 @@ def getPlot(feature1, feature2):
 
     # Select only features and output
     X1 = X[[feature1, feature2, 'diagnosis']]
+    print(feature1,feature2)
 
     # Plot
     g = sns.scatterplot(x=feature1, y=feature2,
