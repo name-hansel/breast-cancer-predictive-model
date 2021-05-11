@@ -8,5 +8,47 @@
 </head>
 <body>
     <h1>Visualization</h1>
+    <form method="GET" action="/visualization/getImage">
+        <div class="dropdown">
+            <label for="feature-1">Choose feature 1 (x axis)</label> 
+        <select name="feature-1" id="feature-1">
+            <option value="radius_mean">Mean Radius</option>
+            <option value="texture_mean">Mean Texture</option>
+            <option value="perimeter_mean">Mean Perimeter</option>
+            <option value="area_mean">Mean Area</option>
+            <option value="smoothness_mean">Mean Smoothness</option>
+            <option value="compactness_mean">Mean Compactness</option>
+            <option value="concavity_mean">Mean Concavity</option>
+            <option value="concave points_mean">Mean Concave Points</option>
+            <option value="symmetry_mean">Mean Symmetry</option>
+            <option value="fractal_dimension_mean">Mean Fractal Dimension</option>
+        </select>
+        </div>
+
+        <div class="dropdown">
+            <label for="feature-2">Choose feature 2 (y axis)</label> 
+        <select name="feature-2" id="feature-2">
+            <option value="radius_mean">Mean Radius</option>
+            <option value="texture_mean">Mean Texture</option>
+            <option value="perimeter_mean">Mean Perimeter</option>
+            <option value="area_mean">Mean Area</option>
+            <option value="smoothness_mean">Mean Smoothness</option>
+            <option value="compactness_mean">Mean Compactness</option>
+            <option value="concavity_mean">Mean Concavity</option>
+            <option value="concave points_mean">Mean Concave Points</option>
+            <option value="symmetry_mean">Mean Symmetry</option>
+            <option value="fractal_dimension_mean">Mean Fractal Dimension</option>
+        </select>
+        </div>
+
+        <div>
+            <button>Submit</button>
+        </div>
+        {% if image %}
+            <div class="image">
+                <img src="data:image/png;base64,{{img}}" alt="Location Histogram" />
+            </div>
+        {% endif %}
+    </form>
 </body>
 </html>
