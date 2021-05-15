@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Predictor</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    
+    <div id="headings">
+        <h4 id="main-heading"><em>“The best protection is early detection.”</em></h4><br>
+        <h2 id="subheading">Enter the <em>mean</em> values of the features stated below.</h2>
+        <p id="info">Decision Tree Model</p>
+    </div>
+
+        <form method="POST" action="">
+        <div id="inputs">
+            <div class="input">
+                <label for="radius_mean">Radius</label>
+                <input class="input_field" name="radius_mean" id="radius_mean">
+            </div>
+
+            <div class="input">
+                <label for="texture_mean">Texture</label>
+                <input class="input_field" name="texture_mean" id="texture_mean">
+            </div>
+
+            <div class="input">
+                <label for="perimeter_mean">Perimeter</label>
+                <input class="input_field" name="perimeter_mean" id="perimeter_mean">
+            </div>
+
+            <div class="input">
+                <label for="area_mean">Area</label>
+                <input class="input_field" name="area_mean" id="area_mean">
+            </div>
+
+            <div class="input">
+                <label for="smoothness_mean">Smoothness</label>
+                <input class="input_field" name="smoothness_mean" id="smoothness_mean">
+            </div>
+
+            <div class="input">
+                <label for="compactness_mean">Compactness</label>
+                <input class="input_field" name="compactness_mean" id="compactness_mean">
+            </div>
+
+            <div class="input">
+                <label for="concavity_mean">Concavity</label>
+                <input class="input_field" name="concavity_mean" id="concavity_mean">
+            </div>
+
+            <div class="input">
+                <label for="concave_points_mean">Concave Points</label>
+                <input class="input_field" name="concave_points_mean" id="concave_points_mean">
+            </div>
+
+            <div class="input">
+                <label for="symmetry_mean">Symmetry</label>
+                <input class="input_field" name="symmetry_mean" id="symmetry_mean">
+            </div>
+
+            <div class="input">
+                <label for="fractal_dimension_mean">Fractal Dimension</label>
+                <input class="input_field" name="fractal_dimension_mean" id="fractal_dimension_mean">
+            </div>
+        </div>
+
+        <div id="buttons">
+            <button id="train-model">Train Model</button>
+            <button id="predict" disabled>Predict</button>
+            <button id="reset" type="reset">Clear</button>
+        </div>
+        
+        <div class="results">
+            <div id="accuracy"></div>
+            <div id="result"></div>
+        </div>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>
