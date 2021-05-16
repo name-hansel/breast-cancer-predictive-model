@@ -28,7 +28,7 @@ CORS(app)
 df = pd.read_csv("data.csv")
 
 
-def trainLogisticRegressionModel():
+def train(model_name):
     global df
     # Remove the unnamed 32nd column which has no values
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
@@ -37,88 +37,45 @@ def trainLogisticRegressionModel():
     y = df['diagnosis']
     X_mean = X.iloc[:, 0:10]
 
-    global X_test, lr
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_mean, y, random_state=42, test_size=0.1)
-    lr = LogisticRegression(solver="lbfgs", max_iter=10000)
-    lr.fit(X_train, y_train)
-    return round(lr.score(X_test, y_test)*100, 2)
-
-
-def trainDecisionTreeModel():
-    global df
-    # Remove the unnamed 32nd column which has no values
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    X = df.drop(['id'], axis=1)
-    X = X.drop(['diagnosis'], axis=1)
-    y = df['diagnosis']
-    X_mean = X.iloc[:, 0:10]
-
-    global X_test, tree
+    global X_test, model
 
     X_train, X_test, y_train, y_test = train_test_split(
         X_mean, y, random_state=42, test_size=0.1)
 
-    tree = DecisionTreeClassifier(criterion='entropy', random_state=0)
-    tree.fit(X_train, y_train)
-    return round(tree.score(X_test, y_test)*100, 2)
+    if(model_name == 'logistic-regression'):
+        model = LogisticRegression(solver="lbfgs", max_iter=10000)
+    elif(model_name == 'decision-tree'):
+        model = DecisionTreeClassifier(criterion='entropy', random_state=0)
+    elif(model_name == 'random-forest'):
+        model = RandomForestClassifier(
+            n_estimators=10, criterion='entropy', random_state=0)
 
-def trainRandomForest():
-    global df
-    # Remove the unnamed 32nd column which has no values
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    X = df.drop(['id'], axis=1)
-    X = X.drop(['diagnosis'], axis=1)
-    y = df['diagnosis']
-    X_mean = X.iloc[:, 0:10]
+    model.fit(X_train, y_train)
+    return round(model.score(X_test, y_test)*100, 2)
 
-    global X_test, classifier
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_mean, y, random_state=42, test_size=0.1)
-
-    classifier = RandomForestClassifier(n_estimators = 10, criterion = 'entropy', random_state = 0)
-    classifier.fit(X_train, y_train)
-    return round(classifier.score(X_test, y_test)*100, 2)
 
 @app.route('/trainModel/<model_name>', methods=['GET'])
-def train(model_name):
-    if(model_name == 'logistic-regression'):
-        return str(trainLogisticRegressionModel())
-    elif(model_name == 'decision-tree'):
-        return str(trainDecisionTreeModel())
-    elif(model_name=='random-forest'):
-        return str(trainRandomForest())
+def trainModel(model_name):
+    return str(train(model_name))
 
 # Prediction
-def predictionLogisticRegression(data):
-    custom = [data]
-    customData = pd.DataFrame(custom, columns=list(X_test.columns))
-    return(lr.predict(customData))
 
-def predictionDecisionTree(data):
-    custom = [data]
-    customData = pd.DataFrame(custom, columns=list(X_test.columns))
-    return(tree.predict(customData))
 
-def predictionRandomForest(data):
+def predict(data):
     custom = [data]
     customData = pd.DataFrame(custom, columns=list(X_test.columns))
-    return(classifier.predict(customData))
+    return(model.predict(customData))
+
 
 @app.route('/predict/<model_name>', methods=['POST'])
-def predict(model_name):
+def predictModel(model_name):
     data = json.loads(request.data)
-    if(model_name == 'logistic-regression'):
-        result = predictionLogisticRegression(data).tolist()
-    elif(model_name=='decision-tree'):
-        result = predictionDecisionTree(data).tolist()
-    elif(model_name=='random-forest'):
-        result = predictionRandomForest(data).tolist()
+    result = predict(data).tolist()
     return jsonify(result[0])
 
 # App routes
+
+
 @app.route('/')
 def home():
     return render_template('home.html')
