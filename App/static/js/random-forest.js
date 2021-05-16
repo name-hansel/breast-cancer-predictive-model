@@ -1,7 +1,7 @@
 document.getElementById('train-model').addEventListener('click', async (e) => {
     e.preventDefault()
     let accuracy = "The accuracy of the model is ";
-    await fetch('http://127.0.0.1:5000/trainModel', {
+    await fetch('http://127.0.0.1:5000/trainModel/random-forest', {
         mode: 'cors', // no-cors, *cors, same-origin
     })
         .then(response => response.json())
@@ -19,7 +19,7 @@ document.getElementById('predict').addEventListener('click', async (e) => {
     let inputs = Array.from(document.getElementsByClassName('input_field'))
     inputs.map(i => data.push(parseFloat(i.value)))
 
-    await fetch('http://127.0.0.1:5000/predict', {
+    await fetch('http://127.0.0.1:5000/predict/random-forest', {
         mode: 'cors', // no-cors, *cors, same-origin
         method: 'POST',
         body: JSON.stringify(data)

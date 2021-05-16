@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Breast Cancer Predictor</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/css/decision-tree.css">
+   
 </head>
 <body>
+    
     <div id="headings">
-        <h4 id="main-heading"><em>“Beat cancer. Small steps every day.”</em></h4><br>
+        <h4 id="main-heading"><em>“The best protection is early detection.”</em></h4><br>
         <h2 id="subheading">Enter the <em>mean</em> values of the features stated below.</h2>
-        <p id="info">Logistic Regression Model</p>
+        <p id="info">Decision Tree Model</p>
     </div>
 
         <form method="POST" action="">
@@ -79,6 +81,7 @@
         </div>
     </form>
 
-    <script src="script.js"></script>
+   <script type=text/javascript src="{{
+  url_for('static', filename='js/decision-tree.js') }}"></script>
 </body>
 </html>
