@@ -106,8 +106,13 @@ def showRandomForest():
     return render_template('random-forest.html')
 
 
-@app.route('/visualization/getImage')
-def visualizationGetImage():
+@app.route('/visualization')
+def showVisualization():
+    return render_template('visual.html')
+
+
+@app.route('/getPlot')
+def getPlot():
     # Get features
     feature1 = request.args.get('feature-1')
     feature2 = request.args.get('feature-2')
@@ -123,13 +128,7 @@ def visualizationGetImage():
     image = image.decode('utf8')
 
     g.get_figure().clf()
-
-    return render_template('visual.html', image=True, img=image)
-
-
-@app.route('/visualization')
-def visualization():
-    return render_template('visual.html', image=False)
+    return jsonify(image)
 
 
 if __name__ == '__main__':
