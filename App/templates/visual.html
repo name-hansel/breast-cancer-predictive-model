@@ -75,7 +75,7 @@
         <h1 id="head">Visualization</h1>
     </div>
     <br>
-    <form method="GET" action="/visualization/getImage">
+    <form method="GET" id="visual-form">
         <div class="dropdown">
             <label class="lab" for="feature-1">Choose feature 1 (x axis)</label> 
         <select name="feature-1" id="feature-1">
@@ -110,12 +110,12 @@
         <br>
         <div id="buttons">
             <button>Show plot</button>
-        </div><br>
-        {% if image %}
-            <div class="image">
-                <img src="data:image/png;base64,{{img}}" alt="Location Histogram" />
-            </div>
-        {% endif %}
+        </div>
+        <br>
+        <div id="image-div">
+            <img id="image"/>
+        </div>
     </form>
+    <script src="../static/js/visual.js"></script>
 </body>
 </html>
